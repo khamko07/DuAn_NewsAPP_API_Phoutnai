@@ -1,52 +1,166 @@
 import 'package:flutter/material.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
+  @override
+  _OnboardingScreenState createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  
+  final List<OnboardingPageData> _pages = [
+    OnboardingPageData(
+      title: 'Welcome to News UED',
+      description: 'Stay updated with the latest news from around the world.',
+      icon: Icons.article_outlined,
+    ),
+    OnboardingPageData(
+      title: 'Personalized Feed',
+      description: 'Customize your news feed based on your interests and preferences.',
+      icon: Icons.tune,
+    ),
+    OnboardingPageData(
+      title: 'Save for Later',
+      description: 'Bookmark articles to read them when you have time.',
+      icon: Icons.bookmark_border,
+    ),
+  ];
+  
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
-          Image.network(
-            'https://scontent.fdad7-2.fna.fbcdn.net/v/t39.30808-6/475207667_1028228862670286_6288073128008475261_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFgcLFrSAqSytSK6gOsBiKYyrULtk9TtsDKtQu2T1O2wKU6SV6P4nJ8OfNJEpFD2YSw_U0UOXhp7VVK3lxTTz8a&_nc_ohc=syp2JV2MrgUQ7kNvgETc2a6&_nc_oc=Adi1WxD5VGn0nuPCbCnrjK9TDT7Opt02Ac_2J0KppwE5yZ7-sJGgB6JV48P-MyfNTfc&_nc_zt=23&_nc_ht=scontent.fdad7-2.fna&_nc_gid=ABmWhhxC2Zuvrh0tVYEOYJw&oh=00_AYCUReK_3ICpAQdgM0suVfUvkrpguATUh_3mi5TSQ6NQEA&oe=67CCDA14',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+          // Background gradient
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).primaryColor.withOpacity(0.7),
+                  Colors.indigo.shade800,
+                ],
+              ),
+            ),
           ),
-          // Content
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          
+          // Decorative elements
+          Positioned(
+            top: -100,
+            left: -50,
+            child: Container(
+              height: 250,
+              width: 250,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          
+          Positioned(
+            bottom: -80,
+            right: -80,
+            child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.15),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          
+          // Page content
+          SafeArea(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Welcome to News UED',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white, // Ensure text is visible on the background
+                Expanded(
+                  flex: 3,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (int page) {
+                      setState(() {
+                        _currentPage = page;
+                      });
+                    },
+                    itemCount: _pages.length,
+                    itemBuilder: (context, index) {
+                      return _buildPage(_pages[index]);
+                    },
                   ),
-                  textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Stay updated with the latest news from around the world. Customize your news feed and save articles for later reading.',
-                  style: TextStyle(fontSize: 16, color: Colors.white), // Ensure text is visible
-                  textAlign: TextAlign.center,
+                
+                // Page indicator
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _buildPageIndicator(),
+                  ),
                 ),
-                SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/register');
-                  },
-                  child: Text('Register'),
-                ),
-                SizedBox(height: 20),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/login');
-                  },
-                  child: Text('Login'),
+                
+                // Buttons
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacementNamed('/register');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Theme.of(context).primaryColor,
+                          backgroundColor: Colors.white,
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 5,
+                        ),
+                        child: Text(
+                          'Get Started',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      OutlinedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacementNamed('/login');
+                        },
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: BorderSide(color: Colors.white, width: 2),
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: Text(
+                          'I already have an account',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -55,4 +169,82 @@ class OnboardingScreen extends StatelessWidget {
       ),
     );
   }
+  
+  Widget _buildPage(OnboardingPageData page) {
+    return Padding(
+      padding: const EdgeInsets.all(40.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Icon
+          Container(
+            padding: EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              page.icon,
+              size: 80,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: 40),
+          // Title
+          Text(
+            page.title,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 20),
+          // Description
+          Text(
+            page.description,
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white.withOpacity(0.9),
+              height: 1.5,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+  
+  List<Widget> _buildPageIndicator() {
+    List<Widget> indicators = [];
+    for (int i = 0; i < _pages.length; i++) {
+      indicators.add(
+        Container(
+          width: i == _currentPage ? 16.0 : 8.0,
+          height: 8.0,
+          margin: EdgeInsets.symmetric(horizontal: 4.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: i == _currentPage 
+                ? Colors.white 
+                : Colors.white.withOpacity(0.4),
+          ),
+        ),
+      );
+    }
+    return indicators;
+  }
+}
+
+class OnboardingPageData {
+  final String title;
+  final String description;
+  final IconData icon;
+  
+  OnboardingPageData({
+    required this.title,
+    required this.description,
+    required this.icon,
+  });
 }
