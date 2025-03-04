@@ -13,8 +13,17 @@ class ArticleDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(article['title'], style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            article['urlToImage'] != null
+                ? Image.network(
+                    article['urlToImage'],
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  )
+                : Container(),
             SizedBox(height: 20),
-            Text(article['content']),
+            Text(article['content'] ?? 'No content available'),
           ],
         ),
       ),

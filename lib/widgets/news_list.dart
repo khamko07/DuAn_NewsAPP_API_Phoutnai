@@ -32,12 +32,41 @@ class _NewsListState extends State<NewsList> {
     return ListView.builder(
       itemCount: _articles.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(_articles[index]['title']),
-          subtitle: Text(_articles[index]['description']),
-          onTap: () {
-            Navigator.of(context).pushNamed('/article', arguments: _articles[index]);
-          },
+        return Card(
+          margin: EdgeInsets.all(8.0),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _articles[index]['urlToImage'] != null
+                    ? Image.network(
+                        _articles[index]['urlToImage'],
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(),
+                SizedBox(height: 8),
+                Text(
+                  _articles[index]['title'],
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  _articles[index]['description'] ?? 'No description available',
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/article', arguments: _articles[index]);
+                  },
+                  child: Text('Read More'),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
