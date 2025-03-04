@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news_app/screens/splash_screen.dart';
 import 'package:news_app/screens/onboarding_screen.dart';
 import 'package:news_app/screens/register_screen.dart';
@@ -11,18 +12,41 @@ import 'package:news_app/screens/saved_articles_screen.dart';
 import 'package:news_app/screens/profile_screen.dart';
 import 'package:news_app/screens/settings_screen.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isDarkMode = prefs.getBool('darkMode') ?? false;
+  runApp(MyApp(isDarkMode: isDarkMode));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  final bool isDarkMode;
+  MyApp({Key? key, required this.isDarkMode}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late bool _isDarkMode;
+
+  @override
+  void initState() {
+    super.initState();
+    _isDarkMode = widget.isDarkMode;
+  }
+
+  void toggleTheme(bool value) {
+    setState(() {
+      _isDarkMode = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'News App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
@@ -35,7 +59,7 @@ class MyApp extends StatelessWidget {
         '/article': (context) => ArticleDetailsScreen(),
         '/saved': (context) => SavedArticlesScreen(),
         '/profile': (context) => ProfileScreen(),
-        '/settings': (context) => SettingsScreen(),
+        '/settings': (context) => SettingsScreen(onThemeChanged: toggleTheme),
       },
     );
   }
