@@ -11,6 +11,7 @@ import 'package:news_app/screens/article_details_screen.dart';
 import 'package:news_app/screens/saved_articles_screen.dart';
 import 'package:news_app/screens/profile_screen.dart';
 import 'package:news_app/screens/settings_screen.dart';
+import 'package:news_app/screens/category_news_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
         '/saved': (context) => SavedArticlesScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => SettingsScreen(onThemeChanged: toggleTheme),
+        '/category_news': (context) => CategoryNewsScreen(),
       },
     );
   }
