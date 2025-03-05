@@ -172,23 +172,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             title: 'Settings',
             route: '/settings',
           ),
-          _buildDrawerItem(
-            context: context,
-            icon: Icons.help_outline,
-            title: 'Help & Feedback',
-            onTap: () {
-              // Show help dialog or navigate to help page
-              showAboutDialog(
-                context: context,
-                applicationName: 'News App',
-                applicationVersion: '1.0.0',
-                applicationLegalese: '© 2023 News App',
-                children: [
-                  Text('Your daily news companion'),
-                ],
-              );
-            },
-          ),
         ],
       ),
     );
