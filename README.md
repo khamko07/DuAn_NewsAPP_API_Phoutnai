@@ -17,28 +17,17 @@
 
 ## Tính Năng
 
-### Tính Năng Cốt Lõi
-- **Xem Tin Nổi Bật**: Tin tức mới nhất và các câu chuyện hàng đầu
-- **Tin Tức Theo Danh Mục**: Duyệt tin tức theo danh mục (Công Nghệ, Kinh Doanh, Thể Thao, Giải Trí, Sức Khỏe)
-- **Tìm Kiếm**: Tìm kiếm các bài báo cụ thể
-- **Đánh Dấu**: Lưu bài báo để đọc sau
-- **Hồ Sơ Người Dùng**: Trải nghiệm cá nhân hóa với tài khoản người dùng
-- **Đăng Ký/Đăng Nhập**: Hệ thống quản lý tài khoản người dùng
-- **Xem Chi Tiết Bài Viết**: Đọc nội dung đầy đủ của bài báo
-- **Chia Sẻ Bài Viết**: Chia sẻ bài báo với bạn bè qua các ứng dụng khác
-
-### Thành Phần Giao Diện
-- **Điều Hướng Tab**: Chuyển đổi dễ dàng giữa các danh mục tin tức khác nhau
-- **Ngăn Kéo Bên**: Truy cập nhanh vào tất cả các phần chính của ứng dụng
-- **Bài Viết Nổi Bật**: Những câu chuyện quan trọng được làm nổi bật
-- **Thiết Kế Responsive**: Thích ứng với các kích thước màn hình và định hướng khác nhau
-- **Hiệu Ứng Blur**: Tạo hiệu ứng mờ cho các thành phần UI
-- **Chủ Đề Gradient**: Sử dụng màu gradient cho giao diện người dùng hấp dẫn
-
-### Điều Hướng
-- **Thanh Điều Hướng Dưới**: Truy cập nhanh vào các phần chính
-- **Tab Danh Mục**: Chuyển đổi dễ dàng giữa các danh mục tin tức
-- **Menu Ngăn Kéo**: Truy cập vào các tính năng và cài đặt bổ sung
+1. Trang Splash Screen 
+2.  Trang onboarding
+3. Trang đăng ký
+4. Trang đăng nhập
+5. Xem Tin Nổi Bật tin tức
+6. Tin Tức Theo Danh Mục tin tức
+7. Tìm Kiếm tin tức
+8, xem chi tiết tin tức
+9. Lưu tin tức
+10 . Trang Hồ Sơ Người Dùng
+11. Trang cài đặt
 
 ## Ảnh Chụp Màn Hình
 *(Bạn có thể thêm ảnh chụp màn hình ứng dụng của bạn vào đây)*
